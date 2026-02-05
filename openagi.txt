@@ -1,0 +1,30 @@
+知乎       zhihu.com/people/OpenAGI 
+微博。     OpenAGI
+X         openagi_ai
+github    OpenAGIs
+小红书     openagi_ai
+微信公众号  开源AGI  
+视频号.    开源AGI/OpenAGI社区
+TikTok.   OpenAGI_AI 
+领英       linkedin.com/in/openagi
+Youtube   OpenAGI-AI
+Slack     OpenAGI
+CSDN      OpenAGI.blog.csdn.net
+Ins       OpenAGI-AI
+Threads   OpenAGI-AI
+Substack  OpenAGIs
+Pinterest OpenAGI-AI
+Facebook  https://www.facebook.com/openagiai
+飞书       openagi-ai.feishu.cn
+
+
+https://openclawskill.ai/
+https://openclawskills.org/
+https://openclawskills.io/
+https://openclawskills.dev/
+
+
+北京市丰台区大成里秀园20号楼6层2单元602号
+
+
+你现在是OpenAGI.ai的创始人，帮我完善下http://localhost:4321/blog/introducing-openclaw这个链接的介绍，首页更正为OpenAGI的介绍，要求结合http://localhost:4321/shoutouts各大AI明星的介绍，同时以OpenAGI社区的名义及未来可能的品牌OpenAGI.AI、OpenAGI.foundation、OpenAGI.bot进行扩展，倡导开源AGI普惠人类的理念进行撰写说明，发表人请引用X链接作者https://x.com/openagi_ai相关信息，相关logo素材请使用openagi.png
