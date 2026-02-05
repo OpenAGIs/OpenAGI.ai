@@ -52,7 +52,7 @@ const duration1 = (row1.length / 2 * pixelsPerItem) / pixelsPerSecond;
 const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
 ---
 
-<Layout title="OpenAGI — Personal AI Assistant">
+<Layout title="OpenAGI — Open Artificial General Intelligence">
   <div class="stars"></div>
   <div class="nebula"></div>
 
@@ -69,12 +69,13 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
         <span class="title-main">OpenAGI</span>
       </h1>
 
-      <p class="tagline" id="tagline">The AI that actually does things.</p>
+      <p class="tagline" id="tagline">Mission Impossible: Democratizing Generative AI</p>
 
-      <p class="description">
-        Clears your inbox, sends emails, manages your calendar, checks you in for flights.<br/>
-        All from WhatsApp, Telegram, or any chat app you already use.
-      </p>
+      <ul class="description mission-list">
+        <li><strong>AI of humans (Ownership):</strong> AI belongs to and originates from humans, reflecting the values and characteristics of human society</li>
+        <li><strong>AI by humans (Creation):</strong> AI is developed and governed by people worldwide rather than a small group of corporations or countries</li>
+        <li><strong>AI for humans (Beneficiary):</strong> AI serves humans, and all humans, not AI serving AI, or humans serving AI</li>
+      </ul>
     </header>
 
     <!-- Latest Blog Post -->
@@ -632,7 +633,7 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
             <span class="press-name">MacStories</span>
           </div>
           <blockquote class="press-quote">
-            "OpenAGI Showed Me What the Future of Personal AI Assistants Looks Like"
+            "OpenAGI Showed Me What the Future of Open Artificial General Intelligence Looks Like"
           </blockquote>
           <span class="press-author">Federico Viticci</span>
         </a>
@@ -794,7 +795,7 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
         <a href="/integrations">Integrations</a>
       </nav>
       <p>Built by the <a href="https://github.com/OpenAGIs" target="_blank" rel="noopener">OpenAGI Community</a> — Open source AI for everyone.</p>
-      <p class="disclaimer">OpenAGI is an open-source personal AI assistant project.</p>
+      <p class="disclaimer">OpenAGI is an open-source Open Artificial General Intelligence project.</p>
     </footer>
   </main>
 </Layout>
@@ -1044,6 +1045,32 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     margin: 0 auto;
     line-height: 1.7;
     animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .mission-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .mission-list li {
+    margin-bottom: 16px;
+    padding-left: 24px;
+    position: relative;
+    color: rgba(0, 229, 204, 0.6); /* Lighter cyan for descriptions */
+  }
+
+  .mission-list li:before {
+    content: "⟩";
+    position: absolute;
+    left: 0;
+    color: var(--cyan-bright);
+    font-weight: bold;
+  }
+
+  .mission-list strong {
+    color: var(--cyan-bright); /* Bright cyan for titles */
+    font-weight: 600;
   }
 
   /* CTA Grid */
