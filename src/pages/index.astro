@@ -873,6 +873,9 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     animation: float 4s ease-in-out infinite;
     cursor: pointer;
     transition: transform 0.3s ease;
+    /* Hardware acceleration for better mobile performance */
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .lobster-icon:hover {
@@ -2070,8 +2073,9 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     }
 
     .lobster-icon {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
     }
 
     .cta {
