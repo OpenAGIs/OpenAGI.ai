@@ -2,15 +2,17 @@
 title: "Announcing Symphony Agentic Workflow"
 description: "How Symphony connects Linear, AI coding, GitHub, and Vercel into a seamless end-to-end agentic software delivery loop."
 date: 2026-03-05
-author: "Symphony Team"
-authorHandle: "symphony"
+author: "OpenAGI Community"
+authorHandle: "openagi"
 tags: ["symphony", "agentic-workflow", "automation", "announcement"]
 image: "/agentic_workflow.png"
 ---
 
 Shipping software should feel like giving your team an intent and watching it come to life. Symphony now delivers that reality with an end-to-end **Agentic Workflow** that turns product ideas into running code with almost no human lift.
 
-![Agentic Workflow](/agentic_workflow.png)
+<div align="center">
+  <img src="/agentic_workflow.png" alt="Agentic Workflow" width="100%" />
+</div>
 
 ## The zero-code delivery path
 
