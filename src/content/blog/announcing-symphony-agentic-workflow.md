@@ -2,8 +2,8 @@
 title: "Announcing Symphony Agentic Workflow"
 description: "How Symphony connects Linear, AI coding, GitHub, and Vercel into a seamless end-to-end agentic software delivery loop."
 date: 2026-03-05
-author: "OpenAGI Community"
-authorHandle: "openagi"
+author: "https://x.com/openagi_ai"
+authorHandle: "openagi_ai"
 tags: ["symphony", "agentic-workflow", "automation", "announcement"]
 image: "/agentic_workflow.png"
 ---
