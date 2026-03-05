@@ -26,6 +26,12 @@
 
 To empower developers, researchers, and organizations to build intelligent AI agents that can reason, learn, and act autonomously — all within an open, collaborative ecosystem.
 
+### 🧭 Core Principles
+
+- **AI of humans** — Agents represent human intent and values, not replace them.
+- **AI by humans** — Built transparently by people with open collaboration.
+- **AI for humans** — Designed to serve and empower everyone.
+
 ---
 
 ## 🚀 Landing Page
