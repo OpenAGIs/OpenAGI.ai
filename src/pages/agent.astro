@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="OpenAGI — Agent Runtime Demo">
+  <main class="container">
+    <section class="panel">
+      <h1>AI Agent Runtime</h1>
+      <p class="muted">Run a prompt with OpenAI/Anthropic and poll task state via API.</p>
+
+      <form id="agent-form" class="form">
+        <label>
+          Provider
+          <select name="provider">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic</option>
+          </select>
+        </label>
+
+        <label>
+          Model (optional)
+          <input type="text" name="model" placeholder="gpt-4o-mini / claude-3-5-sonnet-latest" />
+        </label>
+
+        <label>
+          Prompt
+          <textarea name="prompt" rows="6" placeholder="Summarize the latest user request."></textarea>
+        </label>
+
+        <button type="submit">Run Agent</button>
+      </form>
+
+      <pre id="status" class="status">Idle</pre>
+    </section>
+  </main>
+
+  <script is:inline>
+    {`
+      const form = document.getElementById('agent-form');
+      const status = document.getElementById('status');
+
+      async function poll(taskId) {
+        while (true) {
+          const res = await fetch('/api/agent/status?id=' + encodeURIComponent(taskId));
+          const json = await res.json();
+
+          status.textContent = JSON.stringify(json, null, 2);
+          if (!res.ok) throw new Error(json.error || 'Polling failed');
+          if (json.status === 'completed' || json.status === 'failed') return json;
+
+          await new Promise((r) => setTimeout(r, 1200));
+        }
+      }
+
+      form?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const fd = new FormData(form);
+        const payload = {
+          provider: fd.get('provider'),
+          model: fd.get('model') || undefined,
+          prompt: fd.get('prompt')
+        };
+
+        try {
+          window.posthog?.capture?.('AI_AGENT_RUN', {
+            provider: payload.provider,
+            model: payload.model || null
+          });
+
+          status.textContent = 'Submitting task...';
+          const res = await fetch('/api/agent/run', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const json = await res.json();
+          if (!res.ok || !json.taskId) throw new Error(json.error || 'Run failed');
+
+          status.textContent = 'Task queued: ' + json.taskId;
+          await poll(json.taskId);
+        } catch (error) {
+          status.textContent = String(error);
+        }
+      });
+    `}
+  </script>
+
+  <style>
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--text-secondary);
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+      max-width: 640px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      font: inherit;
+    }
+
+    button {
+      width: fit-content;
+      padding: 10px 14px;
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(0, 255, 204, 0.12));
+      color: var(--text-primary);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .status {
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px;
+      min-height: 180px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</Layout>
