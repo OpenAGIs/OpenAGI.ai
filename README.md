@@ -50,7 +50,7 @@ This repository hosts the official **OpenAGI landing page** — your gateway to 
 
 ## 🛠️ Tech Stack
 
-- **[Astro](https://astro.build/)** — Lightning-fast static site generator
+- **[Astro](https://astro.build/)** — Hybrid/static site framework
 - **GitHub Pages / Vercel** — Hosting and deployment
 - **Custom CSS** — Pure, handcrafted styling with modern aesthetics
 - **Lucide Icons** — Beautiful, consistent iconography
@@ -82,12 +82,28 @@ The site will be available at `http://localhost:4321/`
 ### Build for Production
 
 ```bash
-# Build static site
+# Build site (hybrid runtime + static assets)
 npm run build
 
 # Preview production build
 npm run preview
 ```
+
+### Sentry + Runtime Environment
+
+Set these environment variables for production builds/deployments:
+
+```bash
+SENTRY_DSN=...
+PUBLIC_SENTRY_DSN=...
+SENTRY_AUTH_TOKEN=...
+SENTRY_ORG=...
+SENTRY_PROJECT=...
+```
+
+- `sentry.client.config.ts` and `sentry.server.config.ts` initialize Sentry SDKs with `PUBLIC_SENTRY_DSN`/`SENTRY_DSN`.
+- `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, and `SENTRY_PROJECT` enable production source-map upload during build.
+- Astro is configured for `output: "server"` with the Vercel adapter, and API routes (for example `GET /api/health`) run server-side.
 
 ---
 
