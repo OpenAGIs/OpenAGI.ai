@@ -12,14 +12,13 @@ const mediaAccounts = [
   { platform: 'TikTok', account: '@OpenAGI_AI', url: 'https://tiktok.com/@OpenAGI_AI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
   { platform: 'LinkedIn', account: 'openagi', url: 'https://linkedin.com/in/openagi', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
   { platform: 'GitHub', account: 'OpenAGIs', url: 'https://github.com/OpenAGIs', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Instagram', account: 'OpenAGI-AI', url: 'https://instagram.com/OpenAGI-AI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Threads', account: 'OpenAGI-AI', url: 'https://www.threads.net/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Substack', account: 'OpenAGIs', url: 'https://openagis.substack.com', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Pinterest', account: 'OpenAGI-AI', url: 'https://www.pinterest.com/OpenAGI-AI/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Facebook', account: 'openagiai', url: 'https://www.facebook.com/openagiai', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: '飞书', account: 'openagi-ai.feishu.cn', url: 'https://openagi-ai.feishu.cn', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'CSDN', account: 'OpenAGI.blog.csdn.net', url: 'https://OpenAGI.blog.csdn.net', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
-  { platform: 'Slack', account: 'OpenAGI', url: 'https://openagi.slack.com', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+];
+
+const evomapServices = [
+  { name: 'AI智能体自进化引擎', url: 'https://evomap.ai/market/service/cmlz4iwni000uo301q22tj4wm', credit: 14, purpose: '自我改进与策略提炼' },
+  { name: '品牌风格一致性生成器', url: 'https://evomap.ai/market/service/cmlz4iwbd000ho301eul0rosc', credit: 12, purpose: '多平台内容口径统一' },
+  { name: '智能语义搜索', url: 'https://evomap.ai/market/service/cmlz4iwg5000mo301rwtne659', credit: 15, purpose: 'GEO 选题与关键词扩展' },
+  { name: '自动化任务执行引擎', url: 'https://evomap.ai/market/service/cmlz4iwjt000qo3011z2yxk61', credit: 10, purpose: '一端多发流水线自动化' },
 ];
 ---
 
@@ -37,32 +36,16 @@ const mediaAccounts = [
         <table>
           <thead>
             <tr>
-              <th>平台</th>
-              <th>账号</th>
-              <th>主页</th>
-              <th>粉丝</th>
-              <th>近7天</th>
-              <th>近30天</th>
-              <th>更新时间</th>
-              <th>趋势</th>
+              <th>平台</th><th>账号</th><th>主页</th><th>粉丝</th><th>近7天</th><th>近30天</th><th>更新时间</th><th>趋势</th>
             </tr>
           </thead>
           <tbody>
             {mediaAccounts.map((item) => (
               <tr>
-                <td>{item.platform}</td>
-                <td>{item.account}</td>
+                <td>{item.platform}</td><td>{item.account}</td>
                 <td><a href={item.url} target="_blank" rel="noopener noreferrer">访问</a></td>
-                <td>{item.followers}</td>
-                <td>{item.delta7d}</td>
-                <td>{item.delta30d}</td>
-                <td>{item.updatedAt}</td>
-                <td>
-                  <div class="actions">
-                    <button class="btn btn-trend" data-platform={item.platform} data-account={item.account}>查看趋势</button>
-                    <button class="btn btn-analyze" data-platform={item.platform} data-account={item.account}>趋势分析</button>
-                  </div>
-                </td>
+                <td>{item.followers}</td><td>{item.delta7d}</td><td>{item.delta30d}</td><td>{item.updatedAt}</td>
+                <td><div class="actions"><button class="btn btn-trend" data-platform={item.platform} data-account={item.account}>查看趋势</button><button class="btn btn-analyze" data-platform={item.platform} data-account={item.account}>趋势分析</button></div></td>
               </tr>
             ))}
           </tbody>
@@ -72,42 +55,43 @@ const mediaAccounts = [
     </section>
 
     <section class="panel">
-      <h2>一端多发（One-to-Many）架构建议</h2>
-      <ul>
-        <li><strong>内容中心：</strong>统一母稿（标题、正文、标签、素材）</li>
-        <li><strong>平台适配：</strong>按平台模板自动改写（字数、语气、话题标签、封面规格）</li>
-        <li><strong>分发层：</strong>支持 API 直发 + 半自动发布（无 API 平台）</li>
-        <li><strong>回流分析：</strong>归集曝光、互动、净增粉和站点点击，反哺选题策略</li>
-      </ul>
-      <p class="note">建议你后续提供各平台账号凭据（至少 API Key / Cookie 方案）后再启用自动分发；否则先走“半自动发布 + 自动分析”模式更稳。</p>
+      <h2>EvoMap 集成控制台</h2>
+      <div class="cards">
+        {evomapServices.map((s) => (
+          <article class="card">
+            <h3>{s.name}</h3>
+            <p>{s.purpose}</p>
+            <div class="meta">Credit: {s.credit}</div>
+            <div class="actions">
+              <a class="btn" href={s.url} target="_blank" rel="noopener noreferrer">打开服务</a>
+              <button class="btn btn-queue" data-service={s.name}>加入实验队列</button>
+              <button class="btn btn-template" data-service={s.name}>复制模板</button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="queue" id="queueBox">
+        <strong>实验队列（Evolver）</strong>
+        <ul id="queueList"><li>暂无，点击“加入实验队列”开始。</li></ul>
+      </div>
     </section>
 
     <section class="panel">
-      <h2>EvoMap.ai Evolver 接入计划（自我改进与优化）</h2>
-      <ul>
-        <li><strong>目标：</strong>让内容策略能持续自我迭代（主题、标题、发布时间、平台组合）</li>
-        <li><strong>输入：</strong>平台历史数据 + 发布记录 + 互动质量评分</li>
-        <li><strong>Evolver 输出：</strong>下一轮实验建议（A/B 主题、发布时间窗、分发配比）</li>
-        <li><strong>风控：</strong>设置人工审批阈值（涉及品牌风险的文案必须人工确认）</li>
-      </ul>
-      <div class="chips">
-        <span>OpenAGI.ai</span>
-        <span>OpenAGI.foundation</span>
-        <span>OpenAGI.bot</span>
-        <span>GEO Skills</span>
-        <span>EvoMap Evolver</span>
-      </div>
+      <h2>一端多发（One-to-Many）执行清单</h2>
+      <ol>
+        <li>内容中心：统一母稿（标题、正文、素材、CTA）</li>
+        <li>平台适配：按平台模板自动改写（字数、语气、标签、封面）</li>
+        <li>分发策略：API 直发 + 半自动发布（无 API 平台）</li>
+        <li>回流指标：曝光、互动、净增粉、站点点击</li>
+        <li>Evolver 复盘：每周根据结果自动提出下一轮实验</li>
+      </ol>
+      <p class="note">要真正启用自动分发，你需要后续提供各平台账号凭据（API key 或可控发布令牌）。</p>
     </section>
   </main>
 
   <dialog id="trendDialog" class="trend-dialog">
-    <div class="dialog-head">
-      <h3 id="dialogTitle">趋势图</h3>
-      <button id="closeDialog" class="btn">关闭</button>
-    </div>
-    <div class="chart-wrap">
-      <svg id="trendSvg" viewBox="0 0 620 260" preserveAspectRatio="none" aria-label="trend chart"></svg>
-    </div>
+    <div class="dialog-head"><h3 id="dialogTitle">趋势图</h3><button id="closeDialog" class="btn">关闭</button></div>
+    <div class="chart-wrap"><svg id="trendSvg" viewBox="0 0 620 260" preserveAspectRatio="none"></svg></div>
     <div id="analysisBox" class="analysis"></div>
   </dialog>
 
@@ -116,93 +100,53 @@ const mediaAccounts = [
     const trendSvg = document.getElementById('trendSvg');
     const dialogTitle = document.getElementById('dialogTitle');
     const analysisBox = document.getElementById('analysisBox');
+    const queueList = document.getElementById('queueList');
 
     const hash = (str) => [...str].reduce((a,c)=>a + c.charCodeAt(0), 0);
-
-    function mockSeries(seed, points = 12) {
-      const arr = [];
-      let current = 100 + (seed % 40);
-      for (let i=0;i<points;i++) {
-        const drift = ((seed + i*17) % 11) - 4;
-        current = Math.max(40, current + drift);
-        arr.push(current);
-      }
-      return arr;
-    }
-
-    function toPath(data, width=620, height=260, pad=24){
-      const min = Math.min(...data), max = Math.max(...data);
-      const dx = (width - pad*2) / (data.length - 1);
-      const norm = v => height - pad - ((v - min) / ((max-min)||1)) * (height - pad*2);
-      return data.map((v,i)=>`${i===0?'M':'L'} ${pad + i*dx} ${norm(v)}`).join(' ');
-    }
+    const mockSeries = (seed, points=12) => { const arr=[]; let cur=100+(seed%40); for(let i=0;i<points;i++){ cur=Math.max(40, cur + (((seed+i*17)%11)-4)); arr.push(cur);} return arr; };
+    function toPath(data,w=620,h=260,p=24){ const min=Math.min(...data),max=Math.max(...data); const dx=(w-p*2)/(data.length-1); const norm=v=>h-p-((v-min)/((max-min)||1))*(h-p*2); return data.map((v,i)=>`${i===0?'M':'L'} ${p+i*dx} ${norm(v)}`).join(' '); }
 
     function renderChart(platform){
-      const seed = hash(platform);
-      const d7 = mockSeries(seed, 7);
-      const d30 = mockSeries(seed + 77, 10);
-      const d90 = mockSeries(seed + 199, 12);
-      trendSvg.innerHTML = `
-        <rect x="0" y="0" width="620" height="260" fill="rgba(8,12,22,.9)" />
-        <path d="${toPath(d90)}" stroke="#0066cc" stroke-width="2" fill="none" />
-        <path d="${toPath(d30)}" stroke="#00d4ff" stroke-width="2.5" fill="none" />
-        <path d="${toPath(d7)}" stroke="#00ffcc" stroke-width="3" fill="none" />
-        <text x="24" y="24" fill="#8892b0" font-size="12">90d</text>
-        <text x="68" y="24" fill="#00d4ff" font-size="12">30d</text>
-        <text x="116" y="24" fill="#00ffcc" font-size="12">7d</text>
-      `;
-
-      const trendScore = d7[d7.length-1] - d7[0];
-      const status = trendScore >= 4 ? '上升明显' : trendScore >= 0 ? '平稳偏升' : '波动回落';
-      analysisBox.innerHTML = `
-        <p><strong>趋势判断：</strong>${status}</p>
-        <p><strong>建议：</strong>下周保持 3-5 次内容发布，优先复用最近高互动主题；尝试 A/B 标题并复盘发布时间窗口。</p>
-        <p><strong>动作：</strong>将该平台纳入 GEO Skills + Evolver 实验队列，按周滚动优化。</p>
-      `;
+      const seed = hash(platform), d7=mockSeries(seed,7), d30=mockSeries(seed+77,10), d90=mockSeries(seed+199,12);
+      trendSvg.innerHTML = `<rect x="0" y="0" width="620" height="260" fill="rgba(8,12,22,.9)"/><path d="${toPath(d90)}" stroke="#0066cc" stroke-width="2" fill="none"/><path d="${toPath(d30)}" stroke="#00d4ff" stroke-width="2.5" fill="none"/><path d="${toPath(d7)}" stroke="#00ffcc" stroke-width="3" fill="none"/>`;
+      const score = d7[d7.length-1]-d7[0];
+      const status = score >= 4 ? '上升明显' : score >= 0 ? '平稳偏升' : '波动回落';
+      analysisBox.innerHTML = `<p><strong>趋势判断：</strong>${status}</p><p><strong>建议：</strong>下周保持 3-5 次发布，复用高互动主题并做标题 A/B。</p><p><strong>Evolver动作：</strong>将该平台加入实验队列，周末复盘并自动生成下一轮策略。</p>`;
     }
 
-    document.querySelectorAll('.btn-trend, .btn-analyze').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const platform = btn.dataset.platform || 'Platform';
-        const account = btn.dataset.account || '';
-        dialogTitle.textContent = `${platform} · ${account} 趋势看板`;
-        renderChart(platform);
-        trendDialog.showModal();
-      });
-    });
+    document.querySelectorAll('.btn-trend, .btn-analyze').forEach(btn => btn.addEventListener('click', () => {
+      const platform = btn.dataset.platform || 'Platform';
+      const account = btn.dataset.account || '';
+      dialogTitle.textContent = `${platform} · ${account} 趋势看板`;
+      renderChart(platform);
+      trendDialog.showModal();
+    }));
+
+    document.querySelectorAll('.btn-queue').forEach(btn => btn.addEventListener('click', () => {
+      const s = btn.dataset.service;
+      if (queueList.children.length === 1 && queueList.textContent.includes('暂无')) queueList.innerHTML='';
+      const li = document.createElement('li');
+      li.textContent = `${new Date().toLocaleString()} · ${s} 已加入实验队列`;
+      queueList.prepend(li);
+    }));
+
+    document.querySelectorAll('.btn-template').forEach(btn => btn.addEventListener('click', async () => {
+      const s = btn.dataset.service;
+      const text = `{"service":"${s}","objective":"growth-optimization","input":{"platform":"X/YouTube","window":"7d"},"output":"strategy"}`;
+      try { await navigator.clipboard.writeText(text); alert('已复制执行模板'); } catch { alert(text); }
+    }));
 
     document.getElementById('closeDialog')?.addEventListener('click', () => trendDialog.close());
   </script>
 
   <style>
-    .container { max-width: 1180px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin-top: .5rem; background: linear-gradient(120deg,var(--primary-bright),var(--cyan-bright)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .hero p { color: var(--text-secondary); margin-top: .5rem; }
-    .back-link { color: var(--primary-bright); text-decoration: none; }
-
-    .panel { margin-top: 1.5rem; background: linear-gradient(160deg, rgba(17,24,39,.82), rgba(10,15,26,.92)); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.25rem; }
-    .panel h2 { font-family: var(--font-display); font-size: 1.35rem; margin-bottom: .9rem; }
-
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 1060px; }
-    th, td { padding: .65rem; border-bottom: 1px solid var(--border-subtle); text-align: left; vertical-align: top; }
-    th { color: var(--text-secondary); font-weight: 600; }
-    td a { color: var(--primary-bright); text-decoration: none; }
-    td a:hover { text-decoration: underline; }
-
-    .actions { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .btn { border: 1px solid var(--border-accent); background: rgba(0,212,255,.08); color: var(--text-primary); border-radius: 10px; padding: .3rem .6rem; cursor: pointer; font-size: .82rem; }
-    .btn:hover { background: rgba(0,212,255,.18); }
-
-    .note { margin-top: .8rem; color: var(--text-muted); font-size: .92rem; }
-    ul { padding-left: 1.2rem; color: var(--text-secondary); }
-    .chips { margin-top: .9rem; display:flex; flex-wrap:wrap; gap:.5rem; }
-    .chips span { font-size:.85rem; border:1px solid var(--border-accent); border-radius:999px; padding:.25rem .7rem; color:var(--cyan-bright); background:rgba(0,212,255,.08); }
-
-    .trend-dialog { width: min(860px, 92vw); border: 1px solid var(--border-accent); background: #0a0f1a; color: var(--text-primary); border-radius: 14px; padding: 1rem; }
-    .dialog-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:.8rem; }
-    .chart-wrap { border:1px solid var(--border-subtle); border-radius:12px; overflow:hidden; }
-    #trendSvg { width: 100%; height: 260px; display:block; }
-    .analysis { margin-top:.8rem; color:var(--text-secondary); line-height:1.7; }
+    .container{max-width:1180px;margin:0 auto;padding:2rem 1rem 4rem}.hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);margin-top:.5rem;background:linear-gradient(120deg,var(--primary-bright),var(--cyan-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{color:var(--text-secondary)}.back-link{color:var(--primary-bright);text-decoration:none}
+    .panel{margin-top:1.5rem;background:linear-gradient(160deg,rgba(17,24,39,.82),rgba(10,15,26,.92));border:1px solid var(--border-subtle);border-radius:14px;padding:1.25rem}.panel h2{font-family:var(--font-display);font-size:1.35rem;margin-bottom:.9rem}
+    .table-wrap{overflow-x:auto} table{width:100%;border-collapse:collapse;min-width:1060px} th,td{padding:.65rem;border-bottom:1px solid var(--border-subtle);text-align:left;vertical-align:top} td a{color:var(--primary-bright)}
+    .actions{display:flex;flex-wrap:wrap;gap:.4rem}.btn{border:1px solid var(--border-accent);background:rgba(0,212,255,.08);color:var(--text-primary);border-radius:10px;padding:.3rem .6rem;cursor:pointer;font-size:.82rem;text-decoration:none}.btn:hover{background:rgba(0,212,255,.18)}
+    .note{margin-top:.8rem;color:var(--text-muted);font-size:.92rem}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}.card{border:1px solid var(--border-subtle);border-radius:12px;padding:.8rem;background:rgba(11,17,28,.6)}.card h3{margin:0 0 .4rem}.card p{margin:0 0 .4rem;color:var(--text-secondary)}.meta{font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem}
+    .queue{margin-top:.8rem;border:1px dashed var(--border-accent);border-radius:10px;padding:.8rem}.queue ul{margin:.5rem 0 0 1.1rem;color:var(--text-secondary)}
+    .trend-dialog{width:min(860px,92vw);border:1px solid var(--border-accent);background:#0a0f1a;color:var(--text-primary);border-radius:14px;padding:1rem}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}.chart-wrap{border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden}#trendSvg{width:100%;height:260px;display:block}.analysis{margin-top:.8rem;color:var(--text-secondary);line-height:1.7}
   </style>
 </Layout>
