@@ -1,0 +1,405 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { conceptSeries } from '../data/concepts';
+---
+
+<Layout title="Concepts — OpenAGI Knowledge Hub" description="Structured map of OpenAGI concepts, from AgentStack fundamentals to MCP runtime and community patterns.">
+  <div class="stars"></div>
+  <div class="nebula"></div>
+
+  <main class="container">
+    <header class="hero">
+      <a href="/" class="back-link">← Back to home</a>
+      <p class="eyebrow">Knowledge Hub · Concepts</p>
+      <h1>
+        <span class="claw-accent">⟩</span> Multi-level guide to OpenAGI
+      </h1>
+      <p class="lede">
+        Inspired by the jimmysong.io series model: layered topics you can skim or dive deep. Use the right rail to jump,
+        or scroll and let the active anchor follow you.
+      </p>
+      <div class="hero-actions">
+        <a href="#agent-stack" class="pill primary">Start at AgentStack</a>
+        <a href="#ecosystem" class="pill ghost">Skip to Community</a>
+        <span class="kbd-hint">Tip: Command + K opens search</span>
+      </div>
+    </header>
+
+    <section class="layout">
+      <aside class="toc" aria-label="Concept navigation">
+        <div class="toc-header">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <strong>Concepts</strong>
+        </div>
+        <nav>
+          {conceptSeries.map((series) => (
+            <div class="toc-group">
+              <a class="toc-link" href={`#${series.id}`} data-target={series.id}>{series.title}</a>
+              <div class="toc-children">
+                {series.topics.map((topic) => (
+                  <a class="toc-child" href={`#${series.id}-${topic.id}`} data-target={`${series.id}-${topic.id}`}>
+                    {topic.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="series-list">
+        {conceptSeries.map((series) => (
+          <section class="series-block" id={series.id}>
+            <div class="series-header">
+              <p class="layer">{series.layer}</p>
+              <h2>{series.title}</h2>
+              <p class="series-desc">{series.description}</p>
+            </div>
+            <div class="topic-grid">
+              {series.topics.map((topic) => (
+                <article class="topic-card" id={`${series.id}-${topic.id}`}>
+                  <div class="topic-chip">{topic.tags?.slice(0, 2).join(' · ')}</div>
+                  <h3>{topic.title}</h3>
+                  <p>{topic.summary}</p>
+                  {topic.anchors && (
+                    <div class="anchors">
+                      {topic.anchors.map((anchor) => (
+                        <span class="anchor-pill">#{anchor}</span>
+                      ))}
+                    </div>
+                  )}
+                  {topic.links && (
+                    <div class="links">
+                      {topic.links.map((link) => (
+                        <a href={link.href} class="link" target="_blank" rel="noopener">
+                          {link.label} →
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+  const targets = tocLinks.map((link) => document.querySelector(link.getAttribute('href')));
+
+  const setActive = (id) => {
+    tocLinks.forEach((link) => {
+      link.classList.toggle('active', link.dataset.target === id);
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    },
+    { rootMargin: '-30% 0px -50% 0px', threshold: 0 }
+  );
+
+  targets.forEach((el) => el && observer.observe(el));
+</script>
+
+<style>
+  .stars {
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 30% 20%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 20% 70%, rgba(0,255,204,0.5), transparent),
+      radial-gradient(1px 1px at 80% 80%, rgba(0,153,255,0.4), transparent);
+    background-size: 600px 600px;
+    animation: twinkle 9s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nebula {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
+      radial-gradient(ellipse 50% 60% at 80% 30%, rgba(255, 77, 77, 0.08), transparent 50%),
+      radial-gradient(ellipse 90% 70% at 50% 90%, rgba(0, 229, 204, 0.05), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.5; }
+    to { opacity: 0.9; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+  }
+
+  .hero {
+    margin-bottom: 32px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .back-link:hover { color: var(--primary-bright); }
+
+  .eyebrow {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 10px;
+  }
+
+  .claw-accent { color: var(--primary-bright); }
+
+  .lede {
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin-bottom: 16px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+  }
+
+  .pill.primary {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-bright));
+    border-color: var(--primary-mid);
+    color: #02121c;
+  }
+
+  .pill.ghost:hover { border-color: var(--primary-bright); color: var(--primary-bright); }
+
+  .kbd-hint {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    position: relative;
+  }
+
+  .toc {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    padding: 18px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(10, 15, 26, 0.75);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary-bright);
+    box-shadow: 0 0 8px var(--primary-bright);
+  }
+
+  .toc-group { margin-bottom: 10px; }
+
+  .toc-link {
+    display: block;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    margin-bottom: 6px;
+    transition: color 0.2s ease;
+  }
+
+  .toc-link.active,
+  .toc-link:hover { color: var(--primary-bright); }
+
+  .toc-children {
+    display: grid;
+    gap: 4px;
+    border-left: 1px dashed var(--border-subtle);
+    padding-left: 10px;
+  }
+
+  .toc-child {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .toc-child.active,
+  .toc-child:hover { color: var(--primary-bright); }
+
+  .series-list {
+    display: grid;
+    gap: 24px;
+  }
+
+  .series-block {
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(0, 153, 255, 0.1), rgba(0, 229, 204, 0.05));
+  }
+
+  .series-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+
+  .layer {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border-accent);
+    color: var(--primary-bright);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .series-desc {
+    color: var(--text-secondary);
+    max-width: 720px;
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .topic-card {
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-bright);
+  }
+
+  .topic-chip {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: rgba(0, 229, 204, 0.12);
+    color: var(--primary-bright);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .topic-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .topic-card p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .anchors {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .anchor-pill {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border-accent);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .link {
+    color: var(--primary-bright);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  @media (max-width: 960px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: relative;
+      top: 0;
+      order: -1;
+    }
+  }
+</style>

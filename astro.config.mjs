@@ -1,27 +1,31 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import sentry from '@sentry/astro';
 
+const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 const sentryOrg = process.env.SENTRY_ORG;
 const sentryProject = process.env.SENTRY_PROJECT;
-const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
-const sourceMapsUploadOptions =
-  sentryOrg && sentryProject && sentryAuthToken
+const sentrySourceMapsUploadOptions =
+  sentryAuthToken && sentryOrg && sentryProject
     ? {
+        authToken: sentryAuthToken,
         org: sentryOrg,
-        project: sentryProject,
-        authToken: sentryAuthToken
+        project: sentryProject
       }
-    : undefined;
+    : {
+        enabled: false
+      };
 
 export default defineConfig({
-  site: 'https://clawd.bot',
+  site: 'https://openagi.ai',
   output: 'server',
   adapter: vercel(),
   integrations: [
+    sitemap(),
     sentry({
-      sourceMapsUploadOptions
+      sourceMapsUploadOptions: sentrySourceMapsUploadOptions
     })
   ],
   build: {
