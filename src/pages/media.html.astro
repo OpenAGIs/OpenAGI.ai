@@ -101,6 +101,16 @@ const siteHealthPages = ['/', '/media.html', '/blog', '/concepts', '/resources',
       </div>
       <p class="note">已纳入本轮验收：首页、媒体页、博客页、概念页、资源页、定价页、集成页。</p>
     </section>
+
+    <section class="panel">
+      <h2>真实 API 联动状态</h2>
+      <div class="actions" style="margin-bottom:.8rem;">
+        <button class="btn" id="refreshLiveMetrics">刷新实时指标</button>
+        <button class="btn" id="checkEvomap">检查 EvoMap API</button>
+      </div>
+      <div id="liveMetricsBox" class="note">尚未加载实时指标。</div>
+      <div id="evomapStatusBox" class="note">尚未检查 EvoMap 状态。</div>
+    </section>
   </main>
 
   <dialog id="trendDialog" class="trend-dialog">
@@ -149,6 +159,44 @@ const siteHealthPages = ['/', '/media.html', '/blog', '/concepts', '/resources',
       const text = `{"service":"${s}","objective":"growth-optimization","input":{"platform":"X/YouTube","window":"7d"},"output":"strategy"}`;
       try { await navigator.clipboard.writeText(text); alert('已复制执行模板'); } catch { alert(text); }
     }));
+
+    async function loadLiveMetrics() {
+      const box = document.getElementById('liveMetricsBox');
+      if (!box) return;
+      box.textContent = '正在拉取实时指标...';
+      try {
+        const res = await fetch('/api/media/metrics');
+        const json = await res.json();
+        if (!json?.ok) {
+          box.textContent = `加载失败：${json?.error || 'unknown error'}`;
+          return;
+        }
+        const rows = (json.metrics || [])
+          .map((m) => `${m.platform} / ${m.account}：${m.followers ?? 'N/A'}（${m.source}）`)
+          .join(' | ');
+        box.textContent = `更新时间 ${new Date(json.generatedAt).toLocaleString()} · ${rows}`;
+      } catch (e) {
+        box.textContent = `加载失败：${e instanceof Error ? e.message : String(e)}`;
+      }
+    }
+
+    async function checkEvomapApi() {
+      const box = document.getElementById('evomapStatusBox');
+      if (!box) return;
+      box.textContent = '正在检查 EvoMap API...';
+      try {
+        const res = await fetch('/api/evomap/status');
+        const json = await res.json();
+        box.textContent = `EvoMap: ok=${json.ok} status=${json.status ?? 'n/a'} body=${(json.body || '').slice(0, 120)}`;
+      } catch (e) {
+        box.textContent = `检查失败：${e instanceof Error ? e.message : String(e)}`;
+      }
+    }
+
+    document.getElementById('refreshLiveMetrics')?.addEventListener('click', loadLiveMetrics);
+    document.getElementById('checkEvomap')?.addEventListener('click', checkEvomapApi);
+
+    void loadLiveMetrics();
 
     document.getElementById('closeDialog')?.addEventListener('click', () => trendDialog.close());
   </script>
