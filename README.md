@@ -63,6 +63,17 @@ This repository hosts the official **OpenAGI landing page** — your gateway to 
 
 - Node.js 18+ or Bun 1.0+
 
+### Email (Resend)
+
+This project includes optional server-side email endpoints (Vercel Serverless Functions under `api/`) powered by Resend's REST API.
+Environment variables are documented in `.env.example` (and must be configured in your deployment environment).
+
+Local template preview (dev only):
+
+- `GET /api/dev/email-preview?t=welcome`
+- `GET /api/dev/email-preview?t=otp&code=123456`
+- `GET /api/dev/email-preview?t=task-completed`
+
 ### Local Setup
 
 ```bash
