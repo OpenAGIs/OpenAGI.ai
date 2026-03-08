@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import WindmillLogo from '../components/WindmillLogo.astro';
 import testimonials from '../data/testimonials.json';
+import { getFeedItems } from '../data/feed';
 import { getCollection } from 'astro:content';
 
 // Get latest blog post
@@ -50,6 +51,13 @@ const pixelsPerItem = 336;
 const pixelsPerSecond = 50;
 const duration1 = (row1.length / 2 * pixelsPerItem) / pixelsPerSecond;
 const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
+
+const newsletterUrl = import.meta.env.PUBLIC_NEWSLETTER_URL || 'https://openagis.substack.com';
+const buttondownUsername = import.meta.env.PUBLIC_BUTTONDOWN_USERNAME;
+const telegramUrl = import.meta.env.PUBLIC_TELEGRAM_URL || 'https://t.me/openagi';
+const wechatHandle = import.meta.env.PUBLIC_WECHAT_HANDLE || 'openagi-ai';
+
+const feedItems = await getFeedItems();
 ---
 
 <Layout title="OpenAGI — Open Artificial General Intelligence">
@@ -61,8 +69,6 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     <header class="hero">
       <div class="lobster-icon" aria-hidden="true">
         <WindmillLogo size="100px" speed="8s" />
-      </div>
-      </div>
       </div>
 
       <h1 class="title">
@@ -675,7 +681,7 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
         <span class="cta-label">X / Twitter</span>
-        <span class="cta-sub">Follow for updates</ span>
+        <span class="cta-sub">Follow for updates</span>
       </a>
 
       <a href="https://youtube.com/@OpenAGI-AI" class="cta cta-youtube" target="_blank" rel="noopener">
@@ -755,31 +761,97 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
       </a>
     </nav>
 
-    <!-- Newsletter Signup -->
+    <!-- Community Feed + Newsletter -->
     <section class="newsletter">
       <div class="newsletter-content">
-        <h2 class="newsletter-title">
-          <span class="claw-accent">⟩</span> Stay in the Loop
-        </h2>
-        <p class="newsletter-desc">Get updates on new features, integrations, and lobster wisdom. No spam, unsubscribe anytime.</p>
-        <form class="newsletter-form" action="https://buttondown.com/api/emails/embed-subscribe/steipete" method="post" target="_blank">
-          <input type="hidden" name="tag" value="openagi" />
-          <input
-            type="email"
-            name="email"
-            placeholder="your@email.com"
-            required
-            class="newsletter-input"
-            aria-label="Email address"
-          />
-          <button type="submit" class="newsletter-btn">
-            Subscribe
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </button>
-        </form>
+        <div class="newsletter-head">
+          <h2 class="newsletter-title">
+            <span class="claw-accent">⟩</span> Community feed & subscriptions
+          </h2>
+          <p class="newsletter-desc">
+            Weekly digest plus live updates from GitHub and X. Join via email, Telegram, or WeChat; follow via RSS.
+          </p>
+          <div class="channel-row">
+            <a class="channel-link" href={telegramUrl} target="_blank" rel="noopener">Telegram</a>
+            <a class="channel-link" href="https://x.com/openagi_ai" target="_blank" rel="noopener">X updates</a>
+            <a class="channel-link" href="/rss.xml">RSS feed</a>
+            <span class="channel-link muted">WeChat: {wechatHandle}</span>
+          </div>
+        </div>
+
+        <div class="newsletter-body">
+          <div class="feed-panel">
+            <div class="feed-list">
+              {feedItems.map((item) => (
+                <article class="feed-card">
+                  <div class="feed-meta">
+                    <span class={`source source-${item.source.toLowerCase()}`}>{item.source}</span>
+                    <span class="feed-date">{new Date(item.date).toLocaleDateString()}</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                  <a href={item.link} target="_blank" rel="noopener" class="feed-link">Open →</a>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div class="subscribe-panel">
+            {buttondownUsername ? (
+              <form class="newsletter-form" action={`https://buttondown.com/api/emails/embed-subscribe/${buttondownUsername}`} method="post" target="_blank">
+                <label class="label" for="email">Email Newsletter</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                  class="newsletter-input"
+                  aria-label="Email address"
+                />
+                <button type="submit" class="newsletter-btn">
+                  Subscribe
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </button>
+              </form>
+            ) : (
+              <a class="newsletter-form newsletter-link" href={newsletterUrl} target="_blank" rel="noopener">
+                <div>
+                  <p class="label">Email Newsletter</p>
+                  <p class="community-desc">Subscribe via Substack / newsletter provider.</p>
+                </div>
+                <span class="arrow">→</span>
+              </a>
+            )}
+
+            <div class="community-cards">
+              <a class="community-card" href={telegramUrl} target="_blank" rel="noopener">
+                <div>
+                  <p class="label">Telegram</p>
+                  <p class="community-desc">Join the OpenAGI broadcast + chat.</p>
+                </div>
+                <span class="arrow">→</span>
+              </a>
+              <div class="community-card">
+                <div>
+                  <p class="label">WeChat</p>
+                  <p class="community-desc">Add: {wechatHandle} · community QR pinned.</p>
+                </div>
+                <span class="arrow">◎</span>
+              </div>
+              <a class="community-card" href="/rss.xml">
+                <div>
+                  <p class="label">RSS</p>
+                  <p class="community-desc">Subscribe in your reader for release notes.</p>
+                </div>
+                <span class="arrow">RSS</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -787,6 +859,10 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     <footer class="footer">
       <nav class="footer-nav">
         <a href="/blog">Blog</a>
+        <span class="footer-separator">·</span>
+        <a href="/concepts">Concepts</a>
+        <span class="footer-separator">·</span>
+        <a href="/resources">Resources</a>
         <span class="footer-separator">·</span>
         <a href="/showcase">Showcase</a>
         <span class="footer-separator">·</span>
@@ -1148,122 +1224,203 @@ const duration2 = (row2.length / 2 * pixelsPerItem) / pixelsPerSecond;
     color: var(--text-muted);
   }
 
-  /* Newsletter */
+  /* Newsletter + feed */
   .newsletter {
     margin-bottom: 56px;
     animation: fadeInUp 0.8s ease-out 0.7s both;
   }
 
   .newsletter-content {
-    text-align: center;
-    padding: 40px 32px;
+    padding: 32px;
     border-radius: 20px;
     border: 1px solid var(--border-subtle);
-    background: linear-gradient(135deg, rgba(255, 77, 77, 0.05) 0%, rgba(10, 15, 26, 0.8) 50%, rgba(0, 229, 204, 0.03) 100%);
+    background: linear-gradient(135deg, rgba(0, 229, 204, 0.06), rgba(10, 15, 26, 0.8));
     backdrop-filter: blur(12px);
+    display: grid;
+    gap: 20px;
+  }
+
+  .newsletter-head {
+    display: grid;
+    gap: 10px;
   }
 
   .newsletter-title {
     font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 1.6rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
   }
 
   .newsletter-desc {
-    font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 24px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 720px;
+  }
+
+  .channel-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .channel-link {
+    display: inline-flex;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-accent);
+    color: var(--text-primary);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+    font-weight: 600;
+  }
+
+  .channel-link.muted {
+    color: var(--text-secondary);
+    border-color: var(--border-subtle);
+  }
+
+  .newsletter-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+  }
+
+  .feed-panel {
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  .feed-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .feed-card {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.2s ease;
+  }
+
+  .feed-card:hover {
+    border-color: var(--primary-bright);
+  }
+
+  .feed-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .source {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-accent);
+  }
+
+  .source-github { border-color: #f0f4ff; color: #f0f4ff; }
+  .source-x { border-color: #fff; color: #fff; }
+  .source-newsletter { border-color: var(--primary-bright); color: var(--primary-bright); }
+
+  .feed-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .feed-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .feed-card p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .feed-link {
+    color: var(--primary-bright);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .subscribe-panel {
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.25);
+    display: grid;
+    gap: 12px;
   }
 
   .newsletter-form {
-    display: flex;
-    gap: 12px;
-    max-width: 440px;
-    margin: 0 auto;
+    display: grid;
+    gap: 10px;
+  }
+
+  .label {
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.95rem;
   }
 
   .newsletter-input {
-    flex: 1;
-    padding: 14px 18px;
-    border-radius: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
     border: 1px solid var(--border-subtle);
     background: rgba(10, 15, 26, 0.8);
     color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    outline: none;
-    transition: all 0.25s ease;
-  }
-
-  .newsletter-input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .newsletter-input:focus {
-    border-color: var(--primary-bright);
-    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.15);
   }
 
   .newsletter-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 24px;
-    border-radius: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
     border: none;
-    background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-dark) 100%);
-    color: white;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
+    background: linear-gradient(135deg, var(--primary-bright), var(--primary-dark));
+    color: #02121c;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(255, 77, 77, 0.25);
   }
 
-  .newsletter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(255, 77, 77, 0.35);
+  .community-cards {
+    display: grid;
+    gap: 8px;
   }
 
-  .newsletter-btn:active {
-    transform: translateY(0);
+  .community-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px dashed var(--border-subtle);
+    color: var(--text-primary);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
   }
 
-  .newsletter-btn svg {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.2s ease;
+  .community-desc {
+    color: var(--text-secondary);
   }
 
-  .newsletter-btn:hover svg {
-    transform: translateX(3px);
+  .arrow {
+    font-weight: 800;
+    color: var(--primary-bright);
   }
 
-  @media (max-width: 480px) {
-    .newsletter-content {
-      padding: 28px 20px;
-    }
-
-    .newsletter-form {
-      flex-direction: column;
-    }
-
-    .newsletter-input {
-      width: 100%;
-    }
-
-    .newsletter-btn {
-      width: 100%;
-      justify-content: center;
+  @media (max-width: 900px) {
+    .newsletter-body {
+      grid-template-columns: 1fr;
     }
   }
 
