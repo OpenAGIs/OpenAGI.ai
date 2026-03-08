@@ -1,5 +1,21 @@
-import { captureException } from '../src/server/extensions/sentry';
-import { getStripeClient, type StripeCheckoutPayload } from '../src/server/extensions/stripe';
+import Stripe from 'stripe';
+
+type StripeCheckoutPayload = {
+  priceId?: string;
+  successUrl?: string;
+  cancelUrl?: string;
+  customerEmail?: string;
+  clientReferenceId?: string;
+};
+
+let stripeClient: Stripe | null = null;
+
+function getStripeClient(): Stripe {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Missing STRIPE_SECRET_KEY');
+  if (!stripeClient) stripeClient = new Stripe(key);
+  return stripeClient;
+}
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -26,7 +42,6 @@ export default async function handler(req: any, res: any) {
     if (!session.url) return res.status(502).json({ error: 'Stripe did not return a session URL' });
     return res.status(200).json({ id: session.id, url: session.url });
   } catch (error: unknown) {
-    await captureException(error, { route: '/api/checkout' });
     return res.status(500).json({ error: error instanceof Error ? error.message : 'Internal error' });
   }
 }
