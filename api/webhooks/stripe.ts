@@ -4,23 +4,18 @@ import { captureException } from '../../src/server/extensions/sentry';
 import { recordCheckoutCompleted } from '../../src/server/extensions/subscription-store';
 import { getStripeWebhookSecret } from '../../src/server/extensions/stripe';
 
-export const config = {
-  api: {
-    bodyParser: false
-  }
-};
-
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const signature = req.headers['stripe-signature'];
   if (!signature) return res.status(400).send('Missing stripe-signature header');
 
-  const chunks: Buffer[] = [];
-  for await (const chunk of req) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
-  }
-  const payload = Buffer.concat(chunks).toString('utf8');
+  const payload =
+    typeof req.body === 'string'
+      ? req.body
+      : Buffer.isBuffer(req.body)
+        ? req.body.toString('utf8')
+        : JSON.stringify(req.body ?? {});
 
   let event: Stripe.Event;
   try {
