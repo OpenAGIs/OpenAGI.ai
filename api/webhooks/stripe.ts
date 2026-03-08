@@ -1,5 +1,5 @@
 import { POST as stripeWebhookPost } from '../../src/pages/api/webhooks/stripe';
-import { sendWebResponse, toWebRequest } from '../_lib/astro-bridge';
+import { sendWebResponse, toWebRequest } from '../../src/server/vercel/astro-bridge';
 
 export const config = {
   api: {
