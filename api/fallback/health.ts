@@ -1,9 +1,17 @@
-import { GET as healthGet } from '../../src/pages/api/health';
-import { sendWebResponse, toRequestUrl } from '../../src/server/vercel/astro-bridge';
+import { captureException } from '../../src/server/extensions/sentry';
+import { toRequestUrl } from '../../src/server/vercel/astro-bridge';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  const response = await healthGet({ url: toRequestUrl(req) } as any);
-  return sendWebResponse(res, response);
+  try {
+    if (toRequestUrl(req).searchParams.get('fail') === '1') {
+      throw new Error('Synthetic /api/health failure');
+    }
+
+    return res.status(200).json({ ok: true });
+  } catch (error: unknown) {
+    await captureException(error, { route: '/api/health' });
+    return res.status(500).json({ ok: false });
+  }
 }
