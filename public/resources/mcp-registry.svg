@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="MCP Tool Registry">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00ffcc" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#ff4d4d" stop-opacity="0.12"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="92" height="92" rx="18" fill="url(#g)" stroke="rgba(0,212,255,0.35)" stroke-width="2"/>
+  <path d="M28 34h40v10H28z" fill="rgba(0,0,0,0.18)" stroke="rgba(0,255,204,0.35)" stroke-width="2"/>
+  <path d="M28 52h40v10H28z" fill="rgba(0,0,0,0.18)" stroke="rgba(0,255,204,0.35)" stroke-width="2"/>
+  <text x="48" y="76" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" font-weight="800" fill="#00d4ff">M</text>
+</svg>

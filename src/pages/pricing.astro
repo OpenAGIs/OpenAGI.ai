@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const priceId = import.meta.env.PUBLIC_STRIPE_PRICE_ID;
+---
+
+<Layout title="OpenAGI — Pricing">
+  <main class="container">
+    <section class="pricing">
+      <h1 class="title">Pricing</h1>
+      <p class="subtitle">Subscribe to support OpenAGI and unlock member benefits.</p>
+
+      <div class="card">
+        <h2 class="plan">Pro</h2>
+        <p class="desc">Monthly subscription.</p>
+        <button id="subscribe" class="btn" disabled={!priceId} data-price-id={priceId ?? ''}>
+          {priceId ? '立即订阅' : 'Stripe 未配置（缺少 PUBLIC_STRIPE_PRICE_ID）'}
+        </button>
+        <p class="hint">You will be redirected to Stripe Checkout.</p>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    {`
+      const btn = document.getElementById('subscribe');
+      if (btn && !btn.disabled) {
+        btn.addEventListener('click', async () => {
+          const priceId = btn.getAttribute('data-price-id');
+          try {
+            window.posthog?.capture?.('CHECKOUT_INITIATED', { priceId });
+            const res = await fetch('/api/checkout', {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ priceId })
+            });
+            const json = await res.json().catch(() => ({}));
+            if (!res.ok || !json.url) throw new Error(json.error || 'Failed to create checkout session');
+            window.location.href = json.url;
+          } catch (e) {
+            console.error(e);
+            alert('Checkout failed. Please try again later.');
+          }
+        });
+      }
+    `}
+  </script>
+
+  <style>
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .pricing {
+      display: grid;
+      gap: 24px;
+    }
+    .title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .subtitle {
+      color: var(--text-secondary);
+      max-width: 60ch;
+    }
+    .card {
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.7), rgba(10, 15, 26, 0.8));
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      gap: 12px;
+      max-width: 420px;
+    }
+    .plan {
+      font-family: var(--font-display);
+      font-size: 24px;
+      margin: 0;
+    }
+    .desc, .hint {
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .btn {
+      border: 1px solid var(--border-accent);
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(0, 255, 204, 0.12));
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease;
+      width: fit-content;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0, 255, 204, 0.55);
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  </style>
+</Layout>
+
