@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const mediaAccounts = [
+  { platform: 'X / Twitter', account: '@openagi_ai', url: 'https://x.com/openagi_ai', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'YouTube', account: '@OpenAGI-AI', url: 'https://youtube.com/@OpenAGI-AI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '知乎', account: 'OpenAGI', url: 'https://zhihu.com/people/OpenAGI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '微博', account: 'OpenAGI', url: 'https://weibo.com/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '小红书', account: 'openagi_ai', url: 'https://www.xiaohongshu.com/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '微信公众号', account: '开源AGI', url: 'https://mp.weixin.qq.com/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '视频号', account: '开源AGI / OpenAGI社区', url: 'https://channels.weixin.qq.com/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'TikTok', account: '@OpenAGI_AI', url: 'https://tiktok.com/@OpenAGI_AI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'LinkedIn', account: 'openagi', url: 'https://linkedin.com/in/openagi', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'GitHub', account: 'OpenAGIs', url: 'https://github.com/OpenAGIs', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Instagram', account: 'OpenAGI-AI', url: 'https://instagram.com/OpenAGI-AI', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Threads', account: 'OpenAGI-AI', url: 'https://www.threads.net/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Substack', account: 'OpenAGIs', url: 'https://openagis.substack.com', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Pinterest', account: 'OpenAGI-AI', url: 'https://www.pinterest.com/OpenAGI-AI/', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Facebook', account: 'openagiai', url: 'https://www.facebook.com/openagiai', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: '飞书', account: 'openagi-ai.feishu.cn', url: 'https://openagi-ai.feishu.cn', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'CSDN', account: 'OpenAGI.blog.csdn.net', url: 'https://OpenAGI.blog.csdn.net', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+  { platform: 'Slack', account: 'OpenAGI', url: 'https://openagi.slack.com', followers: '待更新', delta7d: '待更新', delta30d: '待更新', updatedAt: '2026-03-09' },
+];
+---
+
+<Layout
+  title="OpenAGI Media — 自媒体矩阵与增长看板"
+  description="OpenAGI 自媒体平台账号、粉丝与增长趋势看板。"
+>
+  <main class="container">
+    <header class="hero">
+      <a href="/" class="back-link">← Back to Home</a>
+      <h1>OpenAGI Media</h1>
+      <p>OpenAGI 自媒体矩阵、粉丝基线与增长趋势（持续更新）</p>
+    </header>
+
+    <section class="panel">
+      <h2>平台账号与增长情况</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>平台</th>
+              <th>账号</th>
+              <th>主页</th>
+              <th>粉丝</th>
+              <th>近7天</th>
+              <th>近30天</th>
+              <th>更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mediaAccounts.map((item) => (
+              <tr>
+                <td>{item.platform}</td>
+                <td>{item.account}</td>
+                <td>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">访问</a>
+                </td>
+                <td>{item.followers}</td>
+                <td>{item.delta7d}</td>
+                <td>{item.delta30d}</td>
+                <td>{item.updatedAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">注：当前为初始建档版本。后续将接入自动采集或手动周更机制维护粉丝与增长数据。</p>
+    </section>
+
+    <section class="panel">
+      <h2>增长记录 / 实验日志（GEO Skills 预留）</h2>
+      <ul>
+        <li>目标：提升 OpenAGI 在开发者社区与中文互联网的可见度与影响力。</li>
+        <li>后续动作：接入 ClawHub GEO Skills，按平台执行关键词优化、内容迭代与传播实验。</li>
+        <li>指标追踪：曝光、互动率、净增粉、转化到 openagi.ai 的点击。</li>
+      </ul>
+      <div class="chips">
+        <span>OpenAGI.ai</span>
+        <span>OpenAGI.foundation</span>
+        <span>OpenAGI.bot</span>
+        <span>GEO Skills</span>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 0.5rem;
+      background: linear-gradient(120deg, var(--primary-bright), var(--cyan-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p { color: var(--text-secondary); margin-top: 0.5rem; }
+    .back-link { color: var(--primary-bright); text-decoration: none; }
+
+    .panel {
+      margin-top: 1.5rem;
+      background: linear-gradient(160deg, rgba(17, 24, 39, .82), rgba(10, 15, 26, .92));
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+
+    .panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 0.65rem; border-bottom: 1px solid var(--border-subtle); text-align: left; }
+    th { color: var(--text-secondary); font-weight: 600; }
+    td a { color: var(--primary-bright); text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+
+    .note { margin-top: 0.8rem; color: var(--text-muted); font-size: 0.92rem; }
+
+    ul { padding-left: 1.2rem; color: var(--text-secondary); }
+    .chips { margin-top: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chips span {
+      font-size: 0.85rem;
+      border: 1px solid var(--border-accent);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      color: var(--cyan-bright);
+      background: rgba(0, 212, 255, 0.08);
+    }
+  </style>
+</Layout>
