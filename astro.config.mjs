@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import sentry from '@sentry/astro';
 
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
@@ -21,9 +21,7 @@ const sentrySourceMapsUploadOptions =
 export default defineConfig({
   site: 'https://openagi.ai',
   output: 'server',
-  adapter: node({
-    mode: 'standalone'
-  }),
+  adapter: vercel(),
   integrations: [
     sitemap(),
     sentry({
