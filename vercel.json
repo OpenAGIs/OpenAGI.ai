@@ -1,30 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/health",
-      "destination": "/api/fallback/health"
-    },
-    {
-      "source": "/api/agent/status",
-      "destination": "/api/fallback/agent/status"
-    },
-    {
-      "source": "/api/agent/run",
-      "destination": "/api/fallback/agent/run"
-    },
-    {
-      "source": "/api/checkout",
-      "destination": "/api/fallback/checkout"
-    },
-    {
-      "source": "/api/portal",
-      "destination": "/api/fallback/portal"
-    },
-    {
-      "source": "/api/webhooks/stripe",
-      "destination": "/api/fallback/webhooks/stripe"
-    }
-  ],
   "redirects": [
     {
       "source": "/(.*)",
