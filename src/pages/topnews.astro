@@ -34,13 +34,19 @@ const grouped = categories
         <section class="panel topic-panel">
           <h2>{g.category}（{g.items.length}）</h2>
           <div class="list compact">
-            {g.items.map((n) => (
-              <article class="card">
-                <div class="meta">{n.source} · {new Date(n.date).toLocaleString()}</div>
-                <h3><a href={n.link} target="_blank" rel="noopener noreferrer">{n.title}</a></h3>
-                <p>{n.summary}</p>
-              </article>
-            ))}
+            {g.items.map((n, idx) => {
+              const hotIndex = Math.max(60, 100 - idx * 7);
+              return (
+                <article class="card">
+                  <div class="meta-row">
+                    <span class="rank">#{idx + 1}</span>
+                    <span class="hot">指数 {hotIndex}</span>
+                  </div>
+                  <h3><a href={n.link} target="_blank" rel="noopener noreferrer">{n.title}</a></h3>
+                  <div class="meta">{n.source} · {new Date(n.date).toLocaleString()}</div>
+                </article>
+              );
+            })}
           </div>
         </section>
       ))}
@@ -61,7 +67,7 @@ const grouped = categories
   </script>
 
   <style>
-    .container{max-width:980px;margin:0 auto;padding:2rem 1rem 4rem}
+    .container{max-width:1500px;margin:0 auto;padding:1.6rem 1rem 3rem}
     .hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);background:linear-gradient(120deg,var(--primary-bright),var(--cyan-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .hero p{color:var(--text-secondary);margin-top:.5rem}
     .panel{margin-top:1.1rem;background:linear-gradient(160deg, rgba(17,24,39,.82), rgba(10,15,26,.92));border:1px solid var(--border-subtle);border-radius:14px;padding:1rem}
@@ -70,9 +76,12 @@ const grouped = categories
     .topic-panel h2{position:sticky;top:0;z-index:2;background:linear-gradient(160deg, rgba(17,24,39,.95), rgba(10,15,26,.96));padding:.2rem 0 .5rem;border-bottom:1px solid var(--border-subtle);margin-bottom:.6rem}
     .list{display:grid;gap:.7rem}
     .list.compact{max-height:520px;overflow:auto;padding-right:.2rem}
-    .list.compact .card{padding:.65rem}
+    .list.compact .card{padding:.6rem .65rem}
     .card{border:1px solid var(--border-subtle);border-radius:10px;padding:.8rem;background:rgba(255,255,255,.02)}
-    .meta{color:var(--text-muted);font-size:.88rem}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem}
+    .rank{font-family:var(--font-mono);font-weight:700;color:var(--cyan-bright)}
+    .hot{font-size:.82rem;color:var(--text-secondary);border:1px solid var(--border-subtle);border-radius:999px;padding:.1rem .45rem}
+    .meta{color:var(--text-muted);font-size:.82rem;margin-top:.25rem}
     .list.compact::-webkit-scrollbar{width:8px}
     .list.compact::-webkit-scrollbar-thumb{background:rgba(136,146,176,.35);border-radius:8px}
     .note{margin-top:.3rem;color:var(--text-muted)}
