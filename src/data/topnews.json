@@ -1,54 +1,102 @@
 {
-  "generatedAt": "2026-03-09T12:30:00+08:00",
-  "sources": ["arXiv", "Hugging Face", "GitHub Trending", "X", "Substack"],
+  "generatedAt": "2026-03-09T04:35:35.838Z",
+  "refreshPolicy": "10min",
+  "sources": [
+    "arXiv",
+    "Hugging Face",
+    "Papers with Code",
+    "GitHub Trending",
+    "Hacker News",
+    "X"
+  ],
   "items": [
     {
-      "category": "论文",
-      "date": "2026-03-09T09:00:00+08:00",
-      "source": "arXiv",
-      "title": "Latest cs.AI/cs.CL/cs.LG Paper Highlights",
-      "link": "https://arxiv.org/list/cs.AI/recent",
-      "summary": "从 arXiv 订阅源聚合当天高关注论文条目。"
-    },
-    {
       "category": "模型",
-      "date": "2026-03-09T08:30:00+08:00",
       "source": "Hugging Face",
       "title": "Trending Models Snapshot",
       "link": "https://huggingface.co/models?sort=trending",
-      "summary": "聚合模型榜单中近期增长最快的模型。"
+      "summary": "模型趋势聚合（公开源）。",
+      "date": "2026-03-09T04:32:35.837Z"
     },
     {
       "category": "榜单",
-      "date": "2026-03-09T08:00:00+08:00",
       "source": "Papers with Code",
       "title": "Leaderboards Daily Changes",
       "link": "https://paperswithcode.com/sota",
-      "summary": "跟踪主要任务 SOTA 榜单更新。"
+      "summary": "SOTA 榜单更新追踪。",
+      "date": "2026-03-09T04:29:35.837Z"
     },
     {
       "category": "开源项目",
-      "date": "2026-03-09T07:30:00+08:00",
       "source": "GitHub Trending",
-      "title": "AI Open Source Trending Repos",
+      "title": "AI Open Source Trending",
       "link": "https://github.com/trending",
-      "summary": "筛选 AI 相关开源项目的日趋势。"
+      "summary": "AI 开源项目趋势。",
+      "date": "2026-03-09T04:26:35.837Z"
     },
     {
       "category": "社区",
-      "date": "2026-03-09T07:00:00+08:00",
-      "source": "Reddit / Hacker News",
+      "source": "Hacker News",
       "title": "Top Community Discussions",
       "link": "https://news.ycombinator.com/",
-      "summary": "聚合社区高热讨论与技术观点。"
+      "summary": "社区高热讨论摘要。",
+      "date": "2026-03-09T04:23:35.837Z"
     },
     {
       "category": "KOL",
-      "date": "2026-03-09T06:30:00+08:00",
       "source": "X",
       "title": "KOL Watchlist Updates",
       "link": "https://x.com/search?q=AI&f=live",
-      "summary": "跟踪关键意见领袖的最新观点与转发链路。"
+      "summary": "KOL 观点动态聚合。",
+      "date": "2026-03-09T04:20:35.837Z"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:59:55Z",
+      "source": "arXiv",
+      "title": "BEVLM: Distilling Semantic Knowledge from LLMs into Bird's-Eye View Representations",
+      "link": "http://arxiv.org/abs/2603.06576v1",
+      "summary": "The integration of Large Language Models (LLMs) into autonomous driving has attracted growing interest for their strong reasoning and semantic understanding abilities, which are essential for handling complex decision-ma"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:59:43Z",
+      "source": "arXiv",
+      "title": "Fly360: Omnidirectional Obstacle Avoidance within Drone View",
+      "link": "http://arxiv.org/abs/2603.06573v1",
+      "summary": "Obstacle avoidance in unmanned aerial vehicles (UAVs), as a fundamental capability, has gained increasing attention with the growing focus on spatial intelligence. However, current obstacle-avoidance methods mainly depen"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:59:36Z",
+      "source": "arXiv",
+      "title": "SCOPE: Scene-Contextualized Incremental Few-Shot 3D Segmentation",
+      "link": "http://arxiv.org/abs/2603.06572v1",
+      "summary": "Incremental Few-Shot (IFS) segmentation aims to learn new categories over time from only a few annotations. Although widely studied in 2D, it remains underexplored for 3D point clouds. Existing methods suffer from catast"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:58:36Z",
+      "source": "arXiv",
+      "title": "SUREON: A Benchmark and Vision-Language-Model for Surgical Reasoning",
+      "link": "http://arxiv.org/abs/2603.06570v1",
+      "summary": "Surgeons don't just see -- they interpret. When an expert observes a surgical scene, they understand not only what instrument is being used, but why it was chosen, what risk it poses, and what comes next. Current surgica"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:57:04Z",
+      "source": "arXiv",
+      "title": "A recipe for scalable attention-based MLIPs: unlocking long-range accuracy with all-to-all node attention",
+      "link": "http://arxiv.org/abs/2603.06567v1",
+      "summary": "Machine-learning interatomic potentials (MLIPs) have advanced rapidly, with many top models relying on strong physics-based inductive biases. However, as models scale to larger systems like biomolecules and electrolytes,"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:55:15Z",
+      "source": "arXiv",
+      "title": "Boosting deep Reinforcement Learning using pretraining with Logical Options",
+      "link": "http://arxiv.org/abs/2603.06565v1",
+      "summary": "Deep reinforcement learning agents are often misaligned, as they over-exploit early reward signals. Recently, several symbolic approaches have addressed these challenges by encoding sparse objectives along with aligned p"
     }
   ]
 }

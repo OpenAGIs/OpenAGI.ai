@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "digest:ai": "node scripts/fetch-ai-digest.mjs"
+    "digest:ai": "node scripts/fetch-ai-digest.mjs",
+    "topnews:build": "node scripts/build-topnews.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
