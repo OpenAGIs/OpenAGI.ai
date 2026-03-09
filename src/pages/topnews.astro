@@ -3,12 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import topnews from '../data/topnews.json';
 
 const items = [...topnews.items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-const categories = ['论文', '模型', '榜单', '开源项目', '社区', 'KOL'];
+const preferred = ['论文', '模型', '榜单', '开源项目', '社区', 'KOL'];
+const inData = [...new Set(items.map((i) => i.category))];
+const categories = [...preferred, ...inData.filter((c) => !preferred.includes(c))];
 
-const grouped = categories.map((c) => ({
-  category: c,
-  items: items.filter((i) => i.category === c)
-}));
+const grouped = categories
+  .map((c) => ({
+    category: c,
+    items: items.filter((i) => i.category === c)
+  }))
+  .filter((g) => g.items.length > 0);
 ---
 
 <Layout title="OpenAGI TopNews" description="每10分钟刷新、按大类展开的实时 TopNews 页面。">
@@ -25,20 +29,22 @@ const grouped = categories.map((c) => ({
       <p class="note">来源：{topnews.sources.join(' / ')}</p>
     </section>
 
-    {grouped.map((g) => (
-      <section class="panel">
-        <h2>{g.category}（{g.items.length}）</h2>
-        <div class="list">
-          {g.items.length > 0 ? g.items.map((n) => (
-            <article class="card">
-              <div class="meta">{n.source} · {new Date(n.date).toLocaleString()}</div>
-              <h3><a href={n.link} target="_blank" rel="noopener noreferrer">{n.title}</a></h3>
-              <p>{n.summary}</p>
-            </article>
-          )) : <div class="empty">暂无数据</div>}
-        </div>
-      </section>
-    ))}
+    <section class="news-grid">
+      {grouped.map((g) => (
+        <section class="panel topic-panel">
+          <h2>{g.category}（{g.items.length}）</h2>
+          <div class="list compact">
+            {g.items.map((n) => (
+              <article class="card">
+                <div class="meta">{n.source} · {new Date(n.date).toLocaleString()}</div>
+                <h3><a href={n.link} target="_blank" rel="noopener noreferrer">{n.title}</a></h3>
+                <p>{n.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </section>
   </main>
 
   <script>
@@ -59,12 +65,21 @@ const grouped = categories.map((c) => ({
     .hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);background:linear-gradient(120deg,var(--primary-bright),var(--cyan-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .hero p{color:var(--text-secondary);margin-top:.5rem}
     .panel{margin-top:1.1rem;background:linear-gradient(160deg, rgba(17,24,39,.82), rgba(10,15,26,.92));border:1px solid var(--border-subtle);border-radius:14px;padding:1rem}
+    .news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
+    .topic-panel{margin-top:0;min-height:280px}
     .list{display:grid;gap:.7rem}
+    .list.compact .card{padding:.65rem}
     .card{border:1px solid var(--border-subtle);border-radius:10px;padding:.8rem;background:rgba(255,255,255,.02)}
     .meta{color:var(--text-muted);font-size:.88rem}
     .note{margin-top:.3rem;color:var(--text-muted)}
-    .empty{color:var(--text-muted)}
     h3 a{color:var(--text-primary);text-decoration:none}
     h3 a:hover{text-decoration:underline}
+
+    @media (max-width: 1100px){
+      .news-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+    @media (max-width: 720px){
+      .news-grid{grid-template-columns:1fr;}
+    }
   </style>
 </Layout>
