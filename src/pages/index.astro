@@ -835,13 +835,13 @@ const feedItems = await getFeedItems();
                 </div>
                 <span class="arrow">→</span>
               </a>
-              <div class="community-card">
+              <button class="community-card community-wechat" id="wechat-card" type="button" aria-label="Open WeChat QR Code">
                 <div>
                   <p class="label">WeChat</p>
                   <p class="community-desc">Add: {wechatHandle} · community QR pinned.</p>
                 </div>
                 <span class="arrow">◎</span>
-              </div>
+              </button>
               <a class="community-card" href="/rss.xml">
                 <div>
                   <p class="label">RSS</p>
@@ -850,6 +850,15 @@ const feedItems = await getFeedItems();
                 <span class="arrow">RSS</span>
               </a>
             </div>
+
+            <dialog id="wechat-dialog" class="wechat-dialog">
+              <div class="wechat-dialog-head">
+                <h3>WeChat 社区二维码</h3>
+                <button id="wechat-close" class="wechat-close" type="button">关闭</button>
+              </div>
+              <img src="/images/openagi-wechat.png" alt="OpenAGI WeChat QR" class="wechat-qr" loading="lazy" />
+              <p class="wechat-hint">微信扫码加入社区，或添加：{wechatHandle}</p>
+            </dialog>
           </div>
         </div>
       </div>
@@ -875,6 +884,31 @@ const feedItems = await getFeedItems();
     </footer>
   </main>
 </Layout>
+
+<script>
+  (() => {
+    const card = document.getElementById('wechat-card');
+    const dialog = document.getElementById('wechat-dialog');
+    const closeBtn = document.getElementById('wechat-close');
+    if (!card || !dialog) return;
+
+    card.addEventListener('click', () => {
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+    });
+
+    closeBtn?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const inside = (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      );
+      if (!inside) dialog.close();
+    });
+  })();
+</script>
 
 <style>
   /* Starfield Background */
@@ -1407,6 +1441,57 @@ const feedItems = await getFeedItems();
     color: var(--text-primary);
     text-decoration: none;
     background: rgba(255, 255, 255, 0.02);
+  }
+
+  .community-wechat {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    border-style: dashed;
+  }
+
+  .wechat-dialog {
+    width: min(360px, 92vw);
+    border: 1px solid var(--border-accent);
+    border-radius: 14px;
+    background: #0a0f1a;
+    color: var(--text-primary);
+    padding: 1rem;
+  }
+
+  .wechat-dialog::backdrop { background: rgba(0,0,0,.55); }
+
+  .wechat-dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .6rem;
+  }
+
+  .wechat-close {
+    border: 1px solid var(--border-subtle);
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: .25rem .55rem;
+    cursor: pointer;
+  }
+
+  .wechat-qr {
+    display: block;
+    width: min(300px, 82vw);
+    height: auto;
+    margin: .35rem auto;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .wechat-hint {
+    margin-top: .45rem;
+    color: var(--text-secondary);
+    font-size: .92rem;
+    text-align: center;
   }
 
   .community-desc {
