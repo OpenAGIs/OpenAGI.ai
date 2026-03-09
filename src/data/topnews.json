@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T04:35:35.838Z",
+  "generatedAt": "2026-03-09T05:07:43.165Z",
   "refreshPolicy": "10min",
   "sources": [
     "arXiv",
@@ -7,7 +7,8 @@
     "Papers with Code",
     "GitHub Trending",
     "Hacker News",
-    "X"
+    "Substack",
+    "X (Twitter)"
   ],
   "items": [
     {
@@ -16,7 +17,7 @@
       "title": "Trending Models Snapshot",
       "link": "https://huggingface.co/models?sort=trending",
       "summary": "模型趋势聚合（公开源）。",
-      "date": "2026-03-09T04:32:35.837Z"
+      "date": "2026-03-09T05:04:43.164Z"
     },
     {
       "category": "榜单",
@@ -24,7 +25,7 @@
       "title": "Leaderboards Daily Changes",
       "link": "https://paperswithcode.com/sota",
       "summary": "SOTA 榜单更新追踪。",
-      "date": "2026-03-09T04:29:35.837Z"
+      "date": "2026-03-09T05:01:43.164Z"
     },
     {
       "category": "开源项目",
@@ -32,7 +33,7 @@
       "title": "AI Open Source Trending",
       "link": "https://github.com/trending",
       "summary": "AI 开源项目趋势。",
-      "date": "2026-03-09T04:26:35.837Z"
+      "date": "2026-03-09T04:58:43.164Z"
     },
     {
       "category": "社区",
@@ -40,7 +41,7 @@
       "title": "Top Community Discussions",
       "link": "https://news.ycombinator.com/",
       "summary": "社区高热讨论摘要。",
-      "date": "2026-03-09T04:23:35.837Z"
+      "date": "2026-03-09T04:55:43.164Z"
     },
     {
       "category": "KOL",
@@ -48,15 +49,47 @@
       "title": "KOL Watchlist Updates",
       "link": "https://x.com/search?q=AI&f=live",
       "summary": "KOL 观点动态聚合。",
-      "date": "2026-03-09T04:20:35.837Z"
+      "date": "2026-03-09T04:52:43.164Z"
     },
     {
-      "category": "政策",
-      "source": "官方公告",
-      "title": "AI Governance Policy Tracker",
-      "link": "https://openai.com/news",
-      "summary": "测试分类：用于验证新增分类可自动渲染。",
-      "date": "2026-03-09T04:18:00.000Z"
+      "category": "模型",
+      "source": "OpenRouter",
+      "title": "Top LLM Usage Models",
+      "link": "https://openrouter.ai/rankings",
+      "summary": "模型调用热度排行。",
+      "date": "2026-03-09T04:51:43.164Z"
+    },
+    {
+      "category": "榜单",
+      "source": "Hugging Face Open LLM Leaderboard",
+      "title": "Open LLM Leaderboard Snapshot",
+      "link": "https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard",
+      "summary": "开源 LLM 榜单更新。",
+      "date": "2026-03-09T04:45:43.164Z"
+    },
+    {
+      "category": "开源项目",
+      "source": "GitHub",
+      "title": "OpenAGIs Ecosystem Repos",
+      "link": "https://github.com/OpenAGIs",
+      "summary": "OpenAGIs 生态项目聚合。",
+      "date": "2026-03-09T04:40:43.164Z"
+    },
+    {
+      "category": "社区",
+      "source": "Substack",
+      "title": "AI Substack Posts Watchlist",
+      "link": "https://substack.com/search/ai",
+      "summary": "Substack AI 订阅写作更新。",
+      "date": "2026-03-09T04:37:43.164Z"
+    },
+    {
+      "category": "KOL",
+      "source": "X",
+      "title": "Top AI Creators Thread Digest",
+      "link": "https://x.com/i/lists",
+      "summary": "KOL 线程与观点追踪。",
+      "date": "2026-03-09T04:32:43.164Z"
     },
     {
       "category": "论文",
@@ -105,6 +138,22 @@
       "title": "Boosting deep Reinforcement Learning using pretraining with Logical Options",
       "link": "http://arxiv.org/abs/2603.06565v1",
       "summary": "Deep reinforcement learning agents are often misaligned, as they over-exploit early reward signals. Recently, several symbolic approaches have addressed these challenges by encoding sparse objectives along with aligned p"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:46:06Z",
+      "source": "arXiv",
+      "title": "Causal Interpretation of Neural Network Computations with Contribution Decomposition",
+      "link": "http://arxiv.org/abs/2603.06557v1",
+      "summary": "Understanding how neural networks transform inputs into outputs is crucial for interpreting and manipulating their behavior. Most existing approaches analyze internal representations by identifying hidden-layer activatio"
+    },
+    {
+      "category": "论文",
+      "date": "2026-03-06T18:44:37Z",
+      "source": "arXiv",
+      "title": "Hierarchical Industrial Demand Forecasting with Temporal and Uncertainty Explanations",
+      "link": "http://arxiv.org/abs/2603.06555v1",
+      "summary": "Hierarchical time-series forecasting is essential for demand prediction across various industries. While machine learning models have obtained significant accuracy and scalability on such forecasting tasks, the interpret"
     }
   ]
 }
