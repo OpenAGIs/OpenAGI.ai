@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-03-09T02:54:10.032Z",
+  "generatedBy": "scripts/fetch-ai-digest.mjs",
+  "note": "公开源自动抓取（第一版）：arXiv cs.AI/cs.CL/cs.LG；后续可扩展 Gmail/Substack/X 私有订阅源。",
+  "papers": [
+    {
+      "source": "arXiv",
+      "title": "BEVLM: Distilling Semantic Knowledge from LLMs into Bird's-Eye View Representations",
+      "link": "http://arxiv.org/abs/2603.06576v1",
+      "published": "2026-03-06T18:59:55Z",
+      "summary": "The integration of Large Language Models (LLMs) into autonomous driving has attracted growing interest for their strong reasoning and semantic understanding abilities, which are essential for handling complex decision-ma"
+    },
+    {
+      "source": "arXiv",
+      "title": "Fly360: Omnidirectional Obstacle Avoidance within Drone View",
+      "link": "http://arxiv.org/abs/2603.06573v1",
+      "published": "2026-03-06T18:59:43Z",
+      "summary": "Obstacle avoidance in unmanned aerial vehicles (UAVs), as a fundamental capability, has gained increasing attention with the growing focus on spatial intelligence. However, current obstacle-avoidance methods mainly depen"
+    },
+    {
+      "source": "arXiv",
+      "title": "SCOPE: Scene-Contextualized Incremental Few-Shot 3D Segmentation",
+      "link": "http://arxiv.org/abs/2603.06572v1",
+      "published": "2026-03-06T18:59:36Z",
+      "summary": "Incremental Few-Shot (IFS) segmentation aims to learn new categories over time from only a few annotations. Although widely studied in 2D, it remains underexplored for 3D point clouds. Existing methods suffer from catast"
+    },
+    {
+      "source": "arXiv",
+      "title": "SUREON: A Benchmark and Vision-Language-Model for Surgical Reasoning",
+      "link": "http://arxiv.org/abs/2603.06570v1",
+      "published": "2026-03-06T18:58:36Z",
+      "summary": "Surgeons don't just see -- they interpret. When an expert observes a surgical scene, they understand not only what instrument is being used, but why it was chosen, what risk it poses, and what comes next. Current surgica"
+    },
+    {
+      "source": "arXiv",
+      "title": "A recipe for scalable attention-based MLIPs: unlocking long-range accuracy with all-to-all node attention",
+      "link": "http://arxiv.org/abs/2603.06567v1",
+      "published": "2026-03-06T18:57:04Z",
+      "summary": "Machine-learning interatomic potentials (MLIPs) have advanced rapidly, with many top models relying on strong physics-based inductive biases. However, as models scale to larger systems like biomolecules and electrolytes,"
+    },
+    {
+      "source": "arXiv",
+      "title": "Boosting deep Reinforcement Learning using pretraining with Logical Options",
+      "link": "http://arxiv.org/abs/2603.06565v1",
+      "published": "2026-03-06T18:55:15Z",
+      "summary": "Deep reinforcement learning agents are often misaligned, as they over-exploit early reward signals. Recently, several symbolic approaches have addressed these challenges by encoding sparse objectives along with aligned p"
+    },
+    {
+      "source": "arXiv",
+      "title": "Causal Interpretation of Neural Network Computations with Contribution Decomposition",
+      "link": "http://arxiv.org/abs/2603.06557v1",
+      "published": "2026-03-06T18:46:06Z",
+      "summary": "Understanding how neural networks transform inputs into outputs is crucial for interpreting and manipulating their behavior. Most existing approaches analyze internal representations by identifying hidden-layer activatio"
+    },
+    {
+      "source": "arXiv",
+      "title": "Hierarchical Industrial Demand Forecasting with Temporal and Uncertainty Explanations",
+      "link": "http://arxiv.org/abs/2603.06555v1",
+      "published": "2026-03-06T18:44:37Z",
+      "summary": "Hierarchical time-series forecasting is essential for demand prediction across various industries. While machine learning models have obtained significant accuracy and scalability on such forecasting tasks, the interpret"
+    }
+  ]
+}

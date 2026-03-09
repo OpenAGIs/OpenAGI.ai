@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import aiDigest from '../data/ai-digest.json';
 
 const dailyReports = [
   {
@@ -45,9 +46,23 @@ const dailyReports = [
     </section>
 
     <section class="panel">
+      <h2>AI 论文雷达（公开源自动收集）</h2>
+      <p class="note">更新时间：{new Date(aiDigest.generatedAt).toLocaleString()} · 来源：arXiv（第一版）</p>
+      <div class="list">
+        {aiDigest.papers.map((p) => (
+          <article class="card">
+            <div class="meta">{p.source} · {new Date(p.published).toLocaleDateString()}</div>
+            <h3><a href={p.link} target="_blank" rel="noopener noreferrer">{p.title}</a></h3>
+            <p>{p.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel">
       <h2>One-to-Many 日报同步设计（预留）</h2>
       <ol>
-        <li><strong>内容聚合：</strong>汇总当天网站更新、代码提交、运营动作。</li>
+        <li><strong>内容聚合：</strong>汇总当天网站更新、代码提交、公开论文源更新。</li>
         <li><strong>日报生成：</strong>按统一模板生成 Newsletter 日报正文。</li>
         <li><strong>多端同步：</strong>同一份日报分发到 Newsletter 页面、Substack、Telegram、X。</li>
         <li><strong>状态回写：</strong>记录各平台同步状态（success/failed/pending）。</li>
@@ -57,8 +72,9 @@ const dailyReports = [
         <div class="status"><span>Substack</span><b>planned</b></div>
         <div class="status"><span>Telegram</span><b>planned</b></div>
         <div class="status"><span>X</span><b>planned</b></div>
+        <div class="status"><span>Gmail</span><b>needs auth</b></div>
       </div>
-      <p class="note">后续可接入自动任务：每日 23:00 生成并同步日报到本页面与外部渠道。</p>
+      <p class="note">下一步：接入 Gmail/Substack/X 私有订阅源需要你授权 token/OAuth。</p>
     </section>
   </main>
 
