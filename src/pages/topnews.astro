@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import topnews from '../data/topnews.json';
+
+const items = [...topnews.items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const categories = ['全部', '论文', '模型', '榜单', '开源项目', '社区', 'KOL'];
+---
+
+<Layout title="OpenAGI TopNews" description="按日期聚合的多渠道 AI TopNews 分类页。">
+  <main class="container">
+    <header class="hero">
+      <h1>OpenAGI TopNews</h1>
+      <p>按日期排序的多渠道实时 TopNews，聚焦论文、模型、榜单、开源项目、社区、KOL。</p>
+    </header>
+
+    <section class="panel">
+      <h2>分类筛选</h2>
+      <div class="filters" id="filters">
+        {categories.map((c) => (
+          <button class="chip" data-category={c}>{c}</button>
+        ))}
+      </div>
+      <p class="note">数据源：{topnews.sources.join(' / ')} · 更新时间：{new Date(topnews.generatedAt).toLocaleString()}</p>
+    </section>
+
+    <section class="panel">
+      <h2>实时 TopNews（按日期降序）</h2>
+      <div class="list" id="newsList">
+        {items.map((n) => (
+          <article class="card" data-category={n.category}>
+            <div class="meta">{n.category} · {n.source} · {new Date(n.date).toLocaleString()}</div>
+            <h3><a href={n.link} target="_blank" rel="noopener noreferrer">{n.title}</a></h3>
+            <p>{n.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const filters = document.querySelectorAll('#filters .chip');
+    const cards = document.querySelectorAll('#newsList .card');
+
+    function apply(category) {
+      cards.forEach((c) => {
+        const ok = category === '全部' || c.dataset.category === category;
+        c.style.display = ok ? '' : 'none';
+      });
+      filters.forEach((f) => f.classList.toggle('active', f.dataset.category === category));
+    }
+
+    filters.forEach((btn) => btn.addEventListener('click', () => apply(btn.dataset.category || '全部')));
+    apply('全部');
+  </script>
+
+  <style>
+    .container{max-width:980px;margin:0 auto;padding:2rem 1rem 4rem}
+    .hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);background:linear-gradient(120deg,var(--primary-bright),var(--cyan-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero p{color:var(--text-secondary);margin-top:.5rem}
+    .panel{margin-top:1.2rem;background:linear-gradient(160deg, rgba(17,24,39,.82), rgba(10,15,26,.92));border:1px solid var(--border-subtle);border-radius:14px;padding:1.1rem}
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap}
+    .chip{border:1px solid var(--border-accent);background:rgba(0,212,255,.08);color:var(--text-primary);border-radius:999px;padding:.3rem .7rem;cursor:pointer}
+    .chip.active{background:rgba(0,212,255,.22)}
+    .list{display:grid;gap:.7rem}
+    .card{border:1px solid var(--border-subtle);border-radius:10px;padding:.8rem;background:rgba(255,255,255,.02)}
+    .meta{color:var(--text-muted);font-size:.88rem}
+    .note{margin-top:.7rem;color:var(--text-muted)}
+    h3 a{color:var(--text-primary);text-decoration:none}
+    h3 a:hover{text-decoration:underline}
+  </style>
+</Layout>

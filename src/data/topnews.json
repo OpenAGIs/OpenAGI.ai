@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-09T12:30:00+08:00",
+  "sources": ["arXiv", "Hugging Face", "GitHub Trending", "X", "Substack"],
+  "items": [
+    {
+      "category": "论文",
+      "date": "2026-03-09T09:00:00+08:00",
+      "source": "arXiv",
+      "title": "Latest cs.AI/cs.CL/cs.LG Paper Highlights",
+      "link": "https://arxiv.org/list/cs.AI/recent",
+      "summary": "从 arXiv 订阅源聚合当天高关注论文条目。"
+    },
+    {
+      "category": "模型",
+      "date": "2026-03-09T08:30:00+08:00",
+      "source": "Hugging Face",
+      "title": "Trending Models Snapshot",
+      "link": "https://huggingface.co/models?sort=trending",
+      "summary": "聚合模型榜单中近期增长最快的模型。"
+    },
+    {
+      "category": "榜单",
+      "date": "2026-03-09T08:00:00+08:00",
+      "source": "Papers with Code",
+      "title": "Leaderboards Daily Changes",
+      "link": "https://paperswithcode.com/sota",
+      "summary": "跟踪主要任务 SOTA 榜单更新。"
+    },
+    {
+      "category": "开源项目",
+      "date": "2026-03-09T07:30:00+08:00",
+      "source": "GitHub Trending",
+      "title": "AI Open Source Trending Repos",
+      "link": "https://github.com/trending",
+      "summary": "筛选 AI 相关开源项目的日趋势。"
+    },
+    {
+      "category": "社区",
+      "date": "2026-03-09T07:00:00+08:00",
+      "source": "Reddit / Hacker News",
+      "title": "Top Community Discussions",
+      "link": "https://news.ycombinator.com/",
+      "summary": "聚合社区高热讨论与技术观点。"
+    },
+    {
+      "category": "KOL",
+      "date": "2026-03-09T06:30:00+08:00",
+      "source": "X",
+      "title": "KOL Watchlist Updates",
+      "link": "https://x.com/search?q=AI&f=live",
+      "summary": "跟踪关键意见领袖的最新观点与转发链路。"
+    }
+  ]
+}

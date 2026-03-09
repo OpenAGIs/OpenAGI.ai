@@ -1,26 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import aiDigest from '../data/ai-digest.json';
-
-const dailyReports = [
-  {
-    date: '2026-03-09',
-    title: 'OpenAGI Daily Brief #001',
-    summary: '完成站点多项迭代：媒体页精简、导航语言切换、搜索功能下线。'
-  },
-  {
-    date: '2026-03-08',
-    title: 'OpenAGI Daily Brief #000',
-    summary: '上线 /media.html 并建立自媒体矩阵基础数据结构。'
-  }
-];
 ---
 
-<Layout title="OpenAGI Newsletter" description="OpenAGI 日报与订阅页面。">
+<Layout title="OpenAGI Newsletter" description="聚焦订阅源情报的 Newsletter 页面。">
   <main class="container">
     <header class="hero">
       <h1>OpenAGI Newsletter</h1>
-      <p>订阅 OpenAGI 每日/每周更新，集中查看日报归档与同步状态。</p>
+      <p>仅关注订阅源获取的信息：论文、模型、社区资讯等聚合内容。</p>
     </header>
 
     <section class="panel">
@@ -29,25 +16,14 @@ const dailyReports = [
         <a class="btn" href="https://openagis.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
         <a class="btn" href="/rss.xml">RSS</a>
         <a class="btn" href="https://t.me/openagi" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn" href="https://x.com/openagi_ai" target="_blank" rel="noopener noreferrer">X</a>
       </div>
+      <p class="note">说明：本页仅展示订阅源情报聚合结果。</p>
     </section>
 
     <section class="panel">
-      <h2>日报归档（Daily Briefs）</h2>
-      <div class="list">
-        {dailyReports.map((item) => (
-          <article class="card">
-            <div class="meta">{item.date}</div>
-            <h3>{item.title}</h3>
-            <p>{item.summary}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>AI 论文雷达（公开源自动收集）</h2>
-      <p class="note">更新时间：{new Date(aiDigest.generatedAt).toLocaleString()} · 来源：arXiv（第一版）</p>
+      <h2>AI 论文雷达（公开订阅源）</h2>
+      <p class="note">更新时间：{new Date(aiDigest.generatedAt).toLocaleString()} · 来源：arXiv</p>
       <div class="list">
         {aiDigest.papers.map((p) => (
           <article class="card">
@@ -57,24 +33,6 @@ const dailyReports = [
           </article>
         ))}
       </div>
-    </section>
-
-    <section class="panel">
-      <h2>One-to-Many 日报同步设计（预留）</h2>
-      <ol>
-        <li><strong>内容聚合：</strong>汇总当天网站更新、代码提交、公开论文源更新。</li>
-        <li><strong>日报生成：</strong>按统一模板生成 Newsletter 日报正文。</li>
-        <li><strong>多端同步：</strong>同一份日报分发到 Newsletter 页面、Substack、Telegram、X。</li>
-        <li><strong>状态回写：</strong>记录各平台同步状态（success/failed/pending）。</li>
-      </ol>
-      <div class="status-grid">
-        <div class="status"><span>Website</span><b>ready</b></div>
-        <div class="status"><span>Substack</span><b>planned</b></div>
-        <div class="status"><span>Telegram</span><b>planned</b></div>
-        <div class="status"><span>X</span><b>planned</b></div>
-        <div class="status"><span>Gmail</span><b>needs auth</b></div>
-      </div>
-      <p class="note">下一步：接入 Gmail/Substack/X 私有订阅源需要你授权 token/OAuth。</p>
     </section>
   </main>
 
@@ -88,8 +46,6 @@ const dailyReports = [
     .list{display:grid;gap:.7rem}
     .card{border:1px solid var(--border-subtle);border-radius:10px;padding:.8rem;background:rgba(255,255,255,.02)}
     .meta{color:var(--text-muted);font-size:.9rem}
-    .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-top:.8rem}
-    .status{border:1px solid var(--border-subtle);border-radius:10px;padding:.6rem;background:rgba(255,255,255,.02);display:flex;justify-content:space-between}
     .note{margin-top:.7rem;color:var(--text-muted)}
   </style>
 </Layout>
