@@ -212,20 +212,35 @@ const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.
       /* Search overlay */
       .search-fab {
         position: fixed;
-        bottom: 24px;
-        right: 24px;
-        padding: 12px 14px;
-        border-radius: 12px;
+        right: 16px;
+        bottom: max(16px, env(safe-area-inset-bottom));
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border-radius: 999px;
         border: 1px solid var(--border-subtle);
-        background: rgba(0, 0, 0, 0.6);
-        color: var(--text-primary);
-        font-weight: 700;
+        background: rgba(0, 0, 0, 0.42);
+        color: var(--text-secondary);
         cursor: pointer;
-        z-index: 80;
-        backdrop-filter: blur(10px);
+        z-index: 40;
+        backdrop-filter: blur(8px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .18s ease;
+        opacity: .55;
       }
 
-      .search-fab:hover { border-color: var(--primary-bright); }
+      .search-fab:hover {
+        border-color: var(--primary-bright);
+        color: var(--text-primary);
+        background: rgba(0, 0, 0, 0.66);
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+
+      .search-fab .fab-label { display: none; }
+      .search-fab .fab-icon { font-size: 14px; line-height: 1; }
 
       .search-overlay {
         position: fixed;
@@ -320,8 +335,9 @@ const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.
 
       @media (max-width: 600px) {
         .search-fab {
-          bottom: 16px;
-          right: 16px;
+          width: 38px;
+          height: 38px;
+          right: 12px;
         }
       }
     </style>
@@ -348,7 +364,10 @@ const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.
     <slot />
     {!algoliaEnabled && (
       <>
-        <button class="search-fab" id="search-fab" type="button">⌘K Search</button>
+        <button class="search-fab" id="search-fab" type="button" aria-label="Open search (⌘K)">
+          <span class="fab-icon" aria-hidden="true">⌕</span>
+          <span class="fab-label">Search</span>
+        </button>
         <div class="search-overlay" id="search-overlay" hidden>
           <div class="search-panel">
             <div class="search-header">
