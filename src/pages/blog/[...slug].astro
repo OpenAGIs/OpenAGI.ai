@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntryBySlug, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -10,7 +10,13 @@ export async function getStaticPaths() {
   }));
 }
 
-const { post } = Astro.props;
+const routeSlug = Astro.params.slug;
+const post = Astro.props.post ?? (routeSlug ? await getEntryBySlug('blog', routeSlug) : undefined);
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
 const { Content } = await render(post);
 
 function formatDate(date: Date): string {
